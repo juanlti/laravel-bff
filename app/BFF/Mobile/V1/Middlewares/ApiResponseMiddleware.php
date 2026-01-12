@@ -6,9 +6,9 @@ namespace App\BFF\Mobile\V1\Middlewares;
 use Closure;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApiResponseMiddleware
 {
@@ -65,7 +65,7 @@ class ApiResponseMiddleware
         //primero obtengo la respuesta para determinar que valor retornar
         $response = $next($request);
 
-        if (!$request->isSuccessfull()) {
+        if (!$response->isSuccessful()) {
             return $this->formatErrorResponse($response);
         }
         return $this->formatSuccessResponse($response);

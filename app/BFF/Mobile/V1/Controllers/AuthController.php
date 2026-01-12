@@ -6,7 +6,7 @@ namespace App\BFF\Mobile\V1\Controllers;
 use App\BFF\Mobile\V1\Services\TokenService;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
