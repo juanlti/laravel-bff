@@ -5,7 +5,8 @@ namespace App\BFF\Mobile\V1\Middlewares;
 
 use App\BFF\Mobile\V1\Services\TokenService;
 use Closure;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
+
 use Illuminate\Validation\UnauthorizedException;
 
 class EnsureIsAuthenticated

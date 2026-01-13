@@ -12,13 +12,13 @@ use Illuminate\Pipeline\Pipeline;
 
 class ProductService
 {
-    public function getProduct(int $id): ProductDTO
+    public static function getProduct(int $id): ProductDTO
     {
         $product = Product::with('category')->findOrFail($id);
         return ProductDTO::fromModel($product);
     }
 
-    public function getProducts()
+    public static function getProducts()
     {
         return app(abstract: Pipeline::class)
             ->send(Product::query()->with(relations: 'category'))
