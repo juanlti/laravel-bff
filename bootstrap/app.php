@@ -28,8 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         //alias del middleware para la autenticacion del token
         $middleware->alias([
-            'bff.mobile.v1.auth' =>
-                \App\BFF\Mobile\V1\Middlewares\EnsureIsAuthenticated::class,
+            'bff.mobile.v1.auth' => \App\BFF\Mobile\V1\Middlewares\EnsureIsAuthenticated::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

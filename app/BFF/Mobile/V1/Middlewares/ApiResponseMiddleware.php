@@ -26,7 +26,7 @@ class ApiResponseMiddleware
         $jsonResponse = response()->json([
             'success' => false,
             'message' => $response->exception?->getMessage() ?? 'Error desconocido',
-            'code' => $response->exception?->getCode() ?: $response->getStatusCode(),
+            'code' => $response->getStatusCode(),
 
         ], $response->getStatusCode());
 
@@ -42,12 +42,13 @@ class ApiResponseMiddleware
 
     private function formatSuccessResponse(Response $response): JsonResponse
     {
-        $originalContent = $response->getContent();
-        $data = json_decode($originalContent, associative: true);
+
+        $content = json_decode($response->getContent(), true);
+
 
         $jsonResponse = response()->json([
             'success' => true,
-            'data' => $data,
+            'data' => $content,
             'meta' => [
                 'timestamp' => now()->toIso8601String(),
                 'client' => 'mobile',
@@ -60,7 +61,7 @@ class ApiResponseMiddleware
 
     }
 
-    public function handle(Request $request, Closure $next): JsonResponse
+    public function handle(Request $request, Closure $next): Response
     {
         //primero obtengo la respuesta para determinar que valor retornar
         $response = $next($request);

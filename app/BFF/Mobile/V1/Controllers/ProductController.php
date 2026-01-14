@@ -22,6 +22,7 @@ class ProductController
 
     public function show(int $id): ProductResource
     {
+        info('valor del id ', [$id]);
         return new ProductResource(ProductService::getProduct($id));
     }
 }

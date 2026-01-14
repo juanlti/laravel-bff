@@ -8,6 +8,7 @@ use Closure;
 use Illuminate\Http\Request;
 
 use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class EnsureIsAuthenticated
 {
@@ -26,12 +27,12 @@ class EnsureIsAuthenticated
         //el token viene en las cabeceras
         $token = $request->bearerToken();
         if (!$token) {
-            throw new UnauthorizedException(challange: '', message: 'No autorizado');
+            throw new UnauthorizedHttpException( 'Bearer',  'No autorizado');
         }
 
         $user = $this->tokenService->validateToken($token);
         if (!$user) {
-            throw new UnauthorizedException(challange: '', message: 'Token invalido o expirado');
+            throw new UnauthorizedHttpException('Bearer', 'Token invalido o expirado');
         }
 
         //utilizamos inyeccion de dependencias en el request, es decir que en el punto de entrada agregamos el usuario obtenido a partit del token en el request
